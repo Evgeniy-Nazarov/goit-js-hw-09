@@ -35,6 +35,7 @@ startBtn.addEventListener('click', onClick);
 
 function onClick() {
     const selectedDate = inputEl.value;
+    console.log(selectedDate);
     const ms = new Date(selectedDate) - Date.now();
     if (ms < 0) {
         Notiflix.Notify.failure('Please choose a date in the future');
@@ -73,6 +74,8 @@ function addLeadingZero(value) {
         return value.toString();
     };
 };
+
+
 function convertMs(ms) {
     // Number of milliseconds per unit of time
     const second = 1000;
