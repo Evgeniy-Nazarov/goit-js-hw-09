@@ -1,5 +1,5 @@
 import flatpickr from "flatpickr";
-// import "flatpickr/dist/flatpickr.min.css";
+import "flatpickr/dist/flatpickr.min.css";
 import Notiflix from 'notiflix';
 const flatpickr = require("flatpickr");
 
