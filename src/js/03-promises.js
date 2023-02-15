@@ -1,42 +1,67 @@
-const { Notify } = require("notiflix");
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-const inputDelay = document.querySelector('[name="delay"]');
-const inputStep = document.querySelector('[name="step"]');
-const inputAmount = document.querySelector('[name="amount"]');
-const btnCreatePromise = document.querySelector('button');
+ const inputDelayEl = document.querySelector("input[name='delay']");
+ const inputStepEl = document.querySelector("input[name='step']");
+ const inputAmountEl = document.querySelector(" [name='amount']");
+const btnCreatePromEl = document.querySelector('button');
+ 
+btnCreatePromEl.addEventListener('click', onClickBtn);
+ 
+ function onClickBtn(evt) {
+   evt.preventDefault();
+   const delayFirst = +inputDelayEl.value;
+   const step = +inputStepEl.value;
+   const amount = +inputAmountEl.value;
 
-btnCreatePromise.addEventListener('click', onCreatePromiseClick);
+   inputDelayEl.value = '';
+   inputStepEl.value = '';
+   inputAmountEl.value = '';
 
-function onCreatePromiseClick(event) {
-  event.preventDefault();
-  const delay = Number(inputDelay.value);
-  const step = Number(inputStep.value);
-  const amount = Number(inputAmount.value);
+   for (let i = 0; i < amount; i += 1) {
+     let position = i + 1;
+     let delay = delayFirst + i * step;
+     
+     createPromise(position, delay)
+       .then(({ position, delay }) => {
+         Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+         console.log(`✅  Fulfilled promise ${position} in ${delay}ms`);
+       })
+       .catch(({ position, delay }) => {
+         Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+         console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+       });
+   }
+ }
 
-  inputDelay.value = '';
-  inputStep.value = '';
-  inputAmount.value = '';
-
-  for (let i = 0; i < amount; i += 1) {
-    const position = i * step;
-    createPromise(position, delay).then((onResolve, onReject) =>
-      Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`))
-      .catch((onReject) => Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`));
-  }
-  }
+ function createPromise(position, delay) {
+   return new Promise((resolve, reject) => {
+     const shouldResolve = Math.random() > 0.3;
+     setTimeout(() => {
+       if (shouldResolve) {
+         // Fulfill
+         resolve({ position, delay });
+       } else {
+         // Reject
+         reject({ position, delay });
+       }
+     }, delay);
+   });
+ }
 
 
 
 function createPromise(position, delay) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const shouldResolve = Math.random() > 0.3;
-      if (shouldResolve) {
-        resolve(position);
-      }
-      reject(position);
-    }, delay);
-  });
-}
-
+   return new Promise((resolve, reject) => {
+     const shouldResolve = Math.random() > 0.3;
+     setTimeout(() => {
+       if (shouldResolve) {
+         // Fulfill
+         resolve({ position, delay });
+       } else {
+         // Reject
+         reject({ position, delay });
+       }
+     }, delay);
+   });
+ }
 

@@ -6,23 +6,27 @@ const btnStart = document.querySelector('[data-start]');
 const btnStop = document.querySelector(`[data-stop]`);
 const body = document.querySelector('body');
 
-function styleBtn() {
-    btnStart.style.backgroundColor = getRandomHexColor();
-    btnStop.style.backgroundColor = getRandomHexColor();
-}
+let timerId = null;
 
 
 btnStart.addEventListener('click', () => {
-timerId = setInterval(() => {
-    body.style.backgroundColor = getRandomHexColor();
-    btnStart.disabled = true;
-}, 1000);    
-    
+    timerId = setInterval(() => {
+        body.style.backgroundColor = getRandomHexColor();
+        btnStart.disabled = true;
+        btnStart.style.backgroundColor = 'grey';
+        btnStop.disabled = false;
+        btnStop.style.backgroundColor = 'white';
+    }, 1000)
 });
 
+
+
 btnStop.addEventListener('click', () => {
-    clearInterval(timerId);
     btnStart.disabled = false;
+    btnStart.style.backgroundColor = 'white';
+    btnStop.disabled = true;
+    btnStop.style.backgroundColor = 'grey';
+    clearInterval(timerId);
 }       
 );
 
