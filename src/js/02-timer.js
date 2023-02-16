@@ -14,6 +14,9 @@ const spanSeconds = document.querySelector('span[data-seconds]');
 
 let timerId = null;
 
+
+
+
 const options = {
     enableTime: true,
     dateFormat: "Y-m-d H:i",
