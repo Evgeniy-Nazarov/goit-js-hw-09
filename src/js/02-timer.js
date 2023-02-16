@@ -33,7 +33,7 @@ const options = {
     },
 };
 
-const flatpickr = flatpickr(inputEl, options);
+const datePicker = flatpickr(inputEl, options);
 startBtn.addEventListener('click', onClick);
 
 
