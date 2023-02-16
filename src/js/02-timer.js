@@ -30,9 +30,9 @@ const options = {
     },
 };
 
-
 flatpickr(inputEl, options);
 startBtn.addEventListener('click', onClick);
+
 
 function onClick() {
     const selectedDate = inputEl.value;
